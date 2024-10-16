@@ -21,12 +21,12 @@ pipeline{
         stage('create docker image') {
             steps{
     sh 'docker build -t pranalisawant/healthcare:1.0'
-}
+         }
         }
-        stage{
+        stage('docker login'){
             steps{
         withCredentials([usernamePassword(credentialsId: 'docker-cre', passwordVariable: 'dockerpass', usernameVariable: 'dockerlogin')]) 
-                 sh 'docker login -u ${dockerlogin} -p ${dockerpass}'
+              sh 'docker login -u ${dockerlogin} -p ${dockerpass}'
         }
             }
         stage('docker push') {
