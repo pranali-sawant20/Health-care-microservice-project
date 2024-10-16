@@ -20,7 +20,7 @@ pipeline{
         }
         stage('create docker image') {
             steps{
-      sh 'docker build -t pranalisawant/healthcare:1.0'
+      sh 'docker build -t pranalisawant/healthcare:1.0':
          }
         }
         stage('docker login'){
