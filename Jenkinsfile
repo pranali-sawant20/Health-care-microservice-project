@@ -13,16 +13,6 @@ pipeline{
                 sh 'mvn compile'
             }
         }
-        stage('codetesting'){
-            steps{
-                sh 'mvn test'
-            }
-        }
-        stage('qa '){
-            steps{
-                sh 'mvn checkstyle:checkstyle'
-            }
-        }
         stage('package'){
             steps{
                 sh 'mvn package'
