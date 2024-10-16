@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capstone-app-deployment
+  labels:
+    app: healthcare-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: healthcare-app
+  template:
+    metadata:
+      labels:
+        app: healthcare-app
+    spec:
+      containers:
+      - name: capstone-app-container
+        image:  pranalisawant/healthcare:1.0
+        ports:
+        - containerPort: 8084
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: healthcare-app-service
+spec:
+  type: NodePort
+  selector:
+    app: healthcare-app
+  ports:
+  - protocol: TCP
+    port: 8085
+    targetPort: 8082
+    nodePort: 30082  # NodePort value; it will expose to
