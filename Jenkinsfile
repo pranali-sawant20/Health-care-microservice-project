@@ -39,4 +39,34 @@ pipeline{
         withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awsaccess', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')])
     }
     }
+    stage('Terraform Operations for test workspace') {
+      steps {
+        script {
+          sh '''
+            terraform workspace select test || terraform workspace new test
+            terraform init
+            terraform plan
+            terraform destroy -auto-approve
+          '''
+        }
+      }
+    }
+   stage('Terraform destroy & apply for test workspace') {
+      steps {
+        sh 'terraform apply -auto-approve'
+      }
+    }
+   stage('get kubeconfig') {
+      steps {
+        sh 'aws eks update-kubeconfig --region us-east-1 --name test-cluster'
+        sh 'kubectl get nodes'
+      }
+    }
+    stage('Deploying the application') {
+      steps {
+        sh 'kubectl apply -f app-deploy.yml'
+        sh 'kubectl get svc'
+      }
+    }
+    }
 }
