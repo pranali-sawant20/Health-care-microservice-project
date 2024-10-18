@@ -1,5 +1,9 @@
 pipeline{
     agent any
+     environment {
+        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+     }
     stages{
         stage('checkout the code from github'){
             steps{
@@ -34,12 +38,6 @@ pipeline{
             steps{
                sh 'docker push pranalisawant/healthcare:1.0' 
           }
-    }
-    stage('AWS login') {
-    steps{
-        withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awsaccess', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
-    }
-    }
     }
     stage('Terraform Operations for test workspace') {
       steps {
