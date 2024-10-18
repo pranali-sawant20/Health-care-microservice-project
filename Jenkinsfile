@@ -1,10 +1,6 @@
 pipeline{
     agent any
-     environment {
-        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-     }
-    stages{
+         stages{
         stage('checkout the code from github'){
             steps{
                  git url: 'https://github.com/pranali-sawant20/Health-care-microservice-project.git'
@@ -39,6 +35,13 @@ pipeline{
                sh 'docker push pranalisawant/healthcare:1.0' 
           }
     }
+     stage('aws-login'){
+         steps{
+             withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awsaccess', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+    // some block
+}
+         }
+     }
     stage('Terraform Operations for test workspace') {
       steps {
         script {
