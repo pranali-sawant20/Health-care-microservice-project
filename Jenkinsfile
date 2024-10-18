@@ -38,7 +38,7 @@ pipeline{
     stage('AWS login') {
     steps{
         withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awsaccess', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
-        }
+    }
     }
     }
     stage('Terraform Operations for test workspace') {
