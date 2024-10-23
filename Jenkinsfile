@@ -70,10 +70,10 @@ pipeline{
         sh 'kubectl get svc'
       }
     }
-   stage("Terrafore Operations for Production workspace"){
+   stage('Terrafore Operations for Production workspace'){
      when{
       expression{
-        return currentBuild.currentResult == 'SUCCESS'
+         return currentBuild.currentResult == 'SUCCESS'
        }
       }
    steps {
@@ -84,10 +84,10 @@ pipeline{
           terrafore plan
           tarraform destroy -auto-approve
     '''
+    }
    }
- }
-   }
-    stage("Terrafors destroy & apply for production workspace"){
+  }
+    stage('Terrafors destroy & apply for production workspace'){
      steps {
        sh 'terrafore apply -auto-approve'
     }
