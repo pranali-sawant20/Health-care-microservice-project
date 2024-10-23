@@ -96,6 +96,8 @@ pipeline{
      steps {
        sh 'aws eks update-kubeconfig-region us-east-1 --name prod-cluster'
        sh 'kubectl get nodes'
+     }
+    }
     stage('Deploying the application to production') {
      steps{
        sh 'kubectl get avc'
