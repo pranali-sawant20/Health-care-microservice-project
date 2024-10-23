@@ -70,7 +70,7 @@ pipeline{
         sh 'kubectl get svc'
       }
     }
-   stage('Terrafore Operations for Production workspace'){
+   stage('Terraform Operations for Production workspace'){
      when{
       expression{
          return currentBuild.currentResult == 'SUCCESS'
@@ -79,17 +79,17 @@ pipeline{
    steps {
     script {
        sh '''
-          terrafore workspace select prod || terrafore workspace new prod
-          terrafors init
-          terrafore plan
+          terraform workspace select prod || terraform workspace new prod
+          terraform init
+          terraform plan
           tarraform destroy -auto-approve
     '''
     }
    }
   }
-    stage('Terrafors destroy & apply for production workspace'){
+    stage('Terraform destroy & apply for production workspace'){
      steps {
-       sh 'terrafore apply -auto-approve'
+       sh 'terraform apply -auto-approve'
     }
       }
     stage('get kubeconfig for production') {
