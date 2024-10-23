@@ -76,34 +76,34 @@ expression{
 return currmt@uild.currentResult "SUCCESS"
 }
 }
-steps {
-script {
-sh '''
-    terrafore workspace select prod || terrafore workspace new prod
-terrafors Inst
-terrafore plan
-tarraform destroy-auto-approve
- '''
-}
-}
+   steps {
+   script {
+       sh '''
+          terrafore workspace select prod || terrafore workspace new prod
+          terrafors Inst
+          terrafore plan
+          tarraform destroy-auto-approve
+    '''
    }
-stage("Terrafors destroy & apply for production workspaся"){
-steps {
-sh 'terrafore apply auto-approve'
-}
+ }
+   }
+    stage("Terrafors destroy & apply for production workspaся"){
+    steps {
+       sh 'terrafore apply auto-approve'
+    }
       }
-stage('get kubeconfig for production') {
-steps {
-sh 'aws eks update-kubeconfig-region us-east-1 --name prod-cluster'
-sh 'kubectl get nodes'
-stage('Deploying the application to production') {
-steps{
-sh 'kubectl get avc'
-sh 'kubectl aguly - app-deploy.yml'
-sh 'kubectl get svc'
-}
-}
-}
+    stage('get kubeconfig for production') {
+    steps {
+       sh 'aws eks update-kubeconfig-region us-east-1 --name prod-cluster'
+       sh 'kubectl get nodes'
+    stage('Deploying the application to production') {
+    steps{
+       sh 'kubectl get avc'
+       sh 'kubectl aguly - app-deploy.yml'
+       sh 'kubectl get svc'
+     }
+     }
+      }
       }
   }
 }
