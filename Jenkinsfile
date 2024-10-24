@@ -82,7 +82,7 @@ pipeline{
           terraform workspace select prod || terraform workspace new prod
           terraform init
           terraform plan
-          tarraform destroy -auto-approve
+          terraform destroy -auto-approve
     '''
     }
    }
